@@ -25,16 +25,21 @@ To use this switch in your project, follow these steps:
 <!-- Bootstrap Bundle JS (includes Popper) -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
+```
+
 2. Include the HTML for the switch in your webpage:
 
+```
 <!-- Bootstrap 5 switch -->
 <div class="form-check form-switch">
     <input class="form-check-input" type="checkbox" id="darkModeSwitch" checked>
     <label class="form-check-label" for="darkModeSwitch">Dark Mode</label>
 </div>
+```
 
 3. Add the JavaScript code to handle the switch behavior:
 
+```
 document.addEventListener('DOMContentLoaded', (event) => {
     const htmlElement = document.documentElement;
     const switchElement = document.getElementById('darkModeSwitch');
@@ -54,6 +59,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         }
     });
 });
+```
 
 4. (Optional) Customize the switch's appearance using Bootstrap's form-check classes or your own CSS.
 
