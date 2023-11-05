@@ -29,7 +29,7 @@ To use this switch in your project, follow these steps:
 
 2. Include the HTML for the switch in your webpage:
 
-```
+```html
 <!-- Bootstrap 5 switch -->
 <div class="form-check form-switch">
     <input class="form-check-input" type="checkbox" id="darkModeSwitch" checked>
@@ -39,7 +39,7 @@ To use this switch in your project, follow these steps:
 
 3. Add the JavaScript code to handle the switch behavior:
 
-```
+```js
 document.addEventListener('DOMContentLoaded', (event) => {
     const htmlElement = document.documentElement;
     const switchElement = document.getElementById('darkModeSwitch');
