@@ -74,3 +74,7 @@ Feel free to fork the project and submit pull requests. You can improve the scri
 ## License
 
 This project is open-source and available under the [MIT License](LICENSE).
+
+## Support
+
+If you find this project helpful, you can support it via PayPal: [paypal.me/TonyBrueser](https://www.paypal.com/paypalme/TonyBrueser)
