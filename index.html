@@ -1,50 +1,140 @@
-<html>
+<!doctype html>
+<html lang="en">
     <head>
-        <title>Bootstrap 5 Switch mit Dark Mode</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+        <title>Bootstrap Theme Switch Examples (Legacy + Extended)</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet">
         <style>
-            html {
+            .theme-preview {
+                border: 1px solid var(--bs-border-color);
+                border-radius: 0.5rem;
+                padding: 1rem;
+                margin-top: 1rem;
                 transition: background-color 0.3s ease, color 0.3s ease;
             }
         </style>
     </head>
     <body>
-        <!-- Bootstrap 5 switch -->
-        <div class="form-check form-switch">
-            <input class="form-check-input" type="checkbox" id="darkModeSwitch" checked aria-label="Switch between light and dark mode" data-bs-toggle="tooltip" data-bs-placement="top" title="Switch between light and dark mode">
-            <label class="form-check-label" for="darkModeSwitch">Dark Mode</label>
-        </div>
-        
+        <main class="container py-5">
+            <h1 class="h3 mb-4">Bootstrap Theme Switch Examples</h1>
+            <p class="text-body-secondary mb-4">The original example remains unchanged in behavior, and a second extended version is added below.</p>
+
+            <div class="row g-4">
+                <div class="col-12 col-lg-6">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body">
+                            <h2 class="h5">Version 1 (Legacy)</h2>
+                            <p class="small text-body-secondary mb-3">Simple dark/light switch with localStorage persistence.</p>
+
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="darkModeSwitchLegacy" aria-label="Switch between light and dark mode" data-bs-toggle="tooltip" data-bs-placement="top" title="Switch between light and dark mode">
+                                <label class="form-check-label" for="darkModeSwitchLegacy">Dark Mode</label>
+                            </div>
+
+                            <div class="theme-preview" id="legacyPreview" data-bs-theme="light">
+                                <p class="mb-0">Legacy preview area</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-lg-6">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body">
+                            <h2 class="h5">Version 2 (Extended)</h2>
+                            <p class="small text-body-secondary mb-3">Dark/light switch plus system mode support.</p>
+
+                            <div class="d-flex flex-wrap align-items-center gap-3">
+                                <div class="form-check form-switch m-0">
+                                    <input class="form-check-input" type="checkbox" id="darkModeSwitchExtended" aria-label="Switch between light and dark mode" data-bs-toggle="tooltip" data-bs-placement="top" title="Toggle dark mode for this preview">
+                                    <label class="form-check-label" for="darkModeSwitchExtended">Dark mode</label>
+                                </div>
+                                <button class="btn btn-outline-secondary btn-sm" id="systemModeButton" type="button">Use system mode</button>
+                            </div>
+
+                            <p class="mt-3 mb-0 text-body-secondary" id="themeStatus" aria-live="polite"></p>
+
+                            <div class="theme-preview" id="extendedPreview" data-bs-theme="light">
+                                <p class="mb-0">Extended preview area</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
         <script>
-            document.addEventListener('DOMContentLoaded', (event) => {
-                const htmlElement = document.documentElement;
-                const switchElement = document.getElementById('darkModeSwitch');
-                const prefersDarkScheme = window.matchMedia("(prefers-color-scheme: dark)").matches;
-                const currentTheme = localStorage.getItem('bsTheme') || (prefersDarkScheme ? 'dark' : 'light');
+            document.addEventListener('DOMContentLoaded', () => {
+                const legacySwitch = document.getElementById('darkModeSwitchLegacy');
+                const legacyPreview = document.getElementById('legacyPreview');
 
-                htmlElement.setAttribute('data-bs-theme', currentTheme);
-                switchElement.checked = currentTheme === 'dark';
+                const initialLegacyTheme = localStorage.getItem('bsTheme') || 'dark';
+                legacyPreview.setAttribute('data-bs-theme', initialLegacyTheme);
+                legacySwitch.checked = initialLegacyTheme === 'dark';
 
-                switchElement.addEventListener('change', function () {
-                    const newTheme = this.checked ? 'dark' : 'light';
-                    htmlElement.setAttribute('data-bs-theme', newTheme);
-                    localStorage.setItem('bsTheme', newTheme);
+                legacySwitch.addEventListener('change', function () {
+                    const legacyTheme = this.checked ? 'dark' : 'light';
+                    legacyPreview.setAttribute('data-bs-theme', legacyTheme);
+                    localStorage.setItem('bsTheme', legacyTheme);
                 });
 
-                // Tooltip aktivieren
-                var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-                var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-                    return new bootstrap.Tooltip(tooltipTriggerEl);
+                const extendedSwitch = document.getElementById('darkModeSwitchExtended');
+                const systemModeButton = document.getElementById('systemModeButton');
+                const themeStatus = document.getElementById('themeStatus');
+                const extendedPreview = document.getElementById('extendedPreview');
+                const colorSchemeMedia = window.matchMedia('(prefers-color-scheme: dark)');
+
+                const getStoredMode = () => localStorage.getItem('bsThemeMode') || 'system';
+
+                const getActiveTheme = (mode) => {
+                    if (mode === 'system') {
+                        return colorSchemeMedia.matches ? 'dark' : 'light';
+                    }
+                    return mode;
+                };
+
+                const setMode = (mode) => {
+                    const activeTheme = getActiveTheme(mode);
+                    extendedPreview.setAttribute('data-bs-theme', activeTheme);
+                    extendedSwitch.checked = activeTheme === 'dark';
+                    localStorage.setItem('bsThemeMode', mode);
+
+                    // Keep all user-facing state labels centralized for easier updates.
+                    themeStatus.textContent = `Current mode: ${mode} (${activeTheme} active)`;
+                    systemModeButton.classList.toggle('active', mode === 'system');
+                };
+
+                extendedSwitch.addEventListener('change', function () {
+                    setMode(this.checked ? 'dark' : 'light');
                 });
+
+                systemModeButton.addEventListener('click', () => {
+                    setMode('system');
+                });
+
+                // React to OS preference changes only while system mode is active.
+                colorSchemeMedia.addEventListener('change', () => {
+                    if (getStoredMode() === 'system') {
+                        setMode('system');
+                    }
+                });
+
+                // Initialize tooltips for any matching trigger elements.
+                document.querySelectorAll('[data-bs-toggle="tooltip"]').forEach((tooltipTriggerEl) => {
+                    new bootstrap.Tooltip(tooltipTriggerEl);
+                });
+
+                setMode(getStoredMode());
             });
         </script>
+
         <noscript>
-            <div class="alert alert-danger" role="alert">
-                JavaScript is disabled.
+            <div class="container pb-4">
+                <div class="alert alert-danger" role="alert">
+                    JavaScript is disabled.
+                </div>
             </div>
         </noscript>
     </body>
